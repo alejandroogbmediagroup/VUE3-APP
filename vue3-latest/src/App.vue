@@ -1,6 +1,26 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+export default {
+  data() {
+    return {
+      title: "Image Overlay",
+      description:
+        "Some quick example text to build on the card and make up the bulk of the card's content.",
+      img_url: "https://picsum.photos/900/250/?image=3",
+      cover: null,
+    };
+  },
+  methods: {
+    showModal() {
+      this.$refs["text-modal"].show();
+    },
+    hideModal() {
+      this.$refs["my-modal"].hide();
+    },
+    onFileChange() {
+
+    },
+  },
+};
 </script>
 
 <template>
@@ -14,7 +34,69 @@ import TheWelcome from './components/TheWelcome.vue'
 
   <main>
     <!-- <TheWelcome /> -->
-    <HelloWorld msg="You did it!" />
+    <!-- <HelloWorld /> -->
+    <div>
+      <b-card
+        overlay
+        :img-src="img_url"
+        img-alt="Card Image"
+        text-variant="white"
+        :title="title"
+      >
+        <b-card-text>
+          {{ description }}
+        </b-card-text>
+        <footer>
+          <b-button variant="danger" v-b-modal.my-modal>Edit</b-button>
+          
+        </footer>
+      </b-card>
+      <b-modal id="my-modal"  title="Edit Content" size="xl">
+        <title>Edit Content</title>
+        <div>
+          <b-form enctype="multipart/form-data">
+            <b-container>
+              <b-row>
+                <b-col>
+                  <b-form-group
+                    id="frm-title"
+                    label="Enter new title"
+                    label-for="inp-title"
+                  >
+                    <b-form-input id="inp-title" v-model="title"></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col>
+                  <b-form-group
+                    id="frm-description"
+                    label="Enter new description"
+                    label-for="inp-description"
+                  >
+                    <b-form-textarea
+                      id="inp-description"
+                      v-model="description"
+                    ></b-form-textarea>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col>
+                  <b-form-group
+                    id="frm-image"
+                    label="Change image slide"
+                    label-for="file"
+                  >
+                  <input ref="file" :change="onFileChange()"  type="file">
+                  </b-form-group>
+                </b-col>
+              </b-row>
+            </b-container>
+          </b-form>
+        </div>
+      </b-modal>
+    </div>
   </main>
 </template>
 

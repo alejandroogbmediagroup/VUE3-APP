@@ -1,34 +1,74 @@
-<script setup>
-defineProps({
-  // msg: {
-  //   type: String,
-  //   required: true
-  // }
-})
+<script>
+export default {
+  data() {
+    return {
+      title: "Image Overlay",
+      description:
+        "Some quick example text to build on the card and make up the bulk of the card's content.",
+      img_url: "https://picsum.photos/900/250/?image=3",
+    };
+  },
+  methods: {
+    showModal() {
+      this.$refs["text-modal"].show();
+    },
+    hideModal() {
+      this.$refs["my-modal"].hide();
+    },
+    changeContent() {
+      // let formData = new FormData();
+      // formData.append("cover", this.cover);
+      // const config = {
+      //   headers: {
+      //     "content-type": "multipart/form-data",
+      //   },
+      // };
+      // const url = "http://localhost/names";
+      // axios
+      //   .post(url, formData, config)
+      //   .then((response) => {
+      //     Toast.fire({
+      //       icon: "success",
+      //       title: response.data.msg,
+      //     });
+      //   })
+      //   .catch((error) => {
+      //     if (error.response) {
+      //       console.log(error.response.data);
+      //       console.log(error.response.status);
+      //       console.log(error.response.headers);
+      //       if (error.response.status === 422) {
+      //         this.$refs.formData.setErrors(error.response.data.errors);
+      //         Toast.fire({
+      //           icon: "error",
+      //           title: "Por favor, complete los campos requeridos",
+      //         });
+      //       }
+      //     }
+      //   });
+    },
+  },
+};
 </script>
 
 <template>
-  <!-- <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a target="_blank" href="https://vitejs.dev/">Vite</a> +
-      <a target="_blank" href="https://vuejs.org/">Vue 3</a>.
-    </h3>
-  </div> -->
   <div>
-  <b-card
-    overlay
-    img-src="https://picsum.photos/900/250/?image=3"
-    img-alt="Card Image"
-    text-variant="white"
-    title="Image Overlay"
-  >
-    <b-card-text>
-      Some quick example text to build on the card and make up the bulk of the card's content.
-    </b-card-text>
-  </b-card>
-</div>
+    <b-card
+      overlay
+      :img-src="img_url"
+      img-alt="Card Image"
+      text-variant="white"
+      :title="title"
+    >
+      <b-card-text>
+        {{ description }}
+      </b-card-text>
+      <footer>
+        <b-button variant="danger" v-b-modal.my-modal>Edit</b-button>
+      </footer>
+    </b-card>
+    <b-modal id="my-modal">Hello From My Modal!</b-modal>
+  </div>
 </template>
 
 <style scoped>
